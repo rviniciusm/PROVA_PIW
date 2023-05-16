@@ -1,0 +1,35 @@
+O uso de contextos permite o compartilhamento de dados entre diferentes componentes sem que necessite acessá-los diretamente através do props. Nesse sentido, o problema de “props drilling” acontece quando determinados dados só são acessados quando passam por outros componentes, mesmo que alguns desses componentes em questão não precisem ser acessados, sendo o uso de contexto uma boa forma de solucionar o problema. 
+
+<APP>
+     <NAVBAR>
+             <FUNCOESLISTA>
+                       <acaoItem />
+                       <acaoItem /> 
+               <FUNCOESLISTA/>
+
+  <APP>
+
+no exemplo de cima o NAVBAR precisa precisa mostrar os números do codigo no entanto os componentes FUNCAOLISTA E acaoitem não necessitam de todas as informações. Para isso seria usado o Props ou da forma mais simples e mencionada aqui o uso de contextos como no exemplo abaixo
+
+           function App() {
+  const AppContextos = 10; 
+  return (
+    <AppContextost.Provider value={AppContextos}>
+      <Navbar />
+      <FuncoesLISTA>
+        <acaoItem />
+        <acaoItem />
+      </TodoLista>
+    </AppContextos>
+  );
+}
+
+Destro do navbar é possível acessar o contexto sem usar props 
+
+function Navbar() {
+  return (
+    <AppContextost.Consumer>
+      {appContextos => <p>Total de tarefas: {appContextos}</p>}
+    </AppContextos.Consumer>
+  );
+}
